@@ -1,5 +1,5 @@
 ## About ExtPrint3r
-ExtPrint3r is an exploit created by [Blobby Boi](https://github.com/Blobby-Boi/) with the goal of being the successor to ExtHang3r. The exploit recreates the behavior of the LTMEAT Print method by flooding iframes and then printing the page. For whatever reason, printing a page with a ton of iframes hangs the embedded page rather than the page who embedded it. This is exactly what ExtPrint3r exploits, since it also works with extension pages (as long they are under web_accessible_resources). This seems to be much more consistent than other extension-freezing methods, and it also lasts for a longer period of time.
+ExtPrint3r is an exploit that is the spiritual successor to the ONC method. This exploit works by creating thousands of web applications called iFrames, which overloads Securly and ultimately crashes it. 
 
 > It is heavily recommended that you disable the V8 optimizer (chrome://settings/content/v8) prior to using this exploit! This was found by [ts353](https://github.com/ts353).
 
