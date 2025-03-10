@@ -1,7 +1,10 @@
 ## About ExtPrint3r
 ExtPrint3r is an exploit that is the spiritual successor to the ONC method. This exploit works by creating thousands of web applications called iFrames, which overloads Securly and ultimately crashes it. 
 
-> NOTE: The V8 optimizer is no longer supported.
+> NOTE: We recommend you to disable the V8 optimizer as it really helps with lag. THIS DOES NOT WORK WITH OLDER CHROMEBOOKS
+
+## WEBSITE
+If you came from the website, click [here](https://github.com/alanv-tech/ExtensionPrinter)
 
 ## How do I use it?
 To use the exploit, paste the following data URI into your URL bar. Then, click on the disable button next to the extension and follow the instructions on the page. If you can't follow the page instructions, you can visit this comprehensive guide here.
