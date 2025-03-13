@@ -323,6 +323,9 @@
     </div>
     <div class="main-content">
         <div id="printer-tab">
+		<button id="openGameBtn" style="position: absolute; top: 10px; right: 10px;">
+    Open Game
+</button>
             <h3 style="user-select: none; font-weight: 400;">All Extensions</h3>
             <div id="div-container"></div>
 	</div>
@@ -833,6 +836,29 @@
             document.querySelector("#contributor-content").style.display = "block"
         }
         DisplayContributors()
+	    function openGameIncognito() {
+    if (!win || win.closed) {
+        var win = window.open();
+        var url = window.location.href; 
+        var iframe = win.document.createElement('iframe');
+        iframe.style.width = "100%";
+        iframe.style.height = "100%";
+        iframe.style.border = "none";
+        iframe.src = url;
+        win.document.body.appendChild(iframe);
+    }
+}
+
+function openGame1() {
+    setTimeout(function() {
+        window.location.replace('https://google.com/');
+    }, 1000); 
+}
+
+document.getElementById("openGameBtn").addEventListener("click", function() {
+    openGameIncognito();
+    openGame1();
+});
     </script>
 </body>
 </html>
