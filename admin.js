@@ -1,5 +1,5 @@
 var nuke = false;
-
+alert('hey')
 // Hardcoded whitelist: name + UID combo
 const whitelist = [
   { name: "Chris", uid: "1234567" },
