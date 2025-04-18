@@ -3,117 +3,179 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>.</title>
+  <title>Google Drive</title>
+  <link rel="icon" href="https://www.gstatic.com/images/branding/product/2x/drive_48dp.png" type="image/png">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      background-color: #f0f0f0;
+      color: #3c4043;
+    }
+    #mask {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #fff;
+      text-align: center;
+      z-index: 9999;
+      padding-top: 120px;
+    }
+    #mask img {
+      width: 172px;
+      height: 172px;
+    }
+    #mask h1 {
+      font-size: 28px;
+      color: #4285f4;
+      margin-top: 30px;
+    }
+    #mask p {
+      font-size: 16px;
+      margin: 10px 0;
+    }
+    #mask .desc {
+      font-size: 14px;
+      color: #70757a;
+      margin-top: 5px;
+    }
+    #mask a {
+      color: #4285f4;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    #realContent {
+      display: none;
+      margin: 0;
+      padding: 0;
+    }
+    .error-message {
+      padding: 20px;
+    }
+    .error-message h2 {
+      margin: 0;
+      font-size: 24px;
+    }
+    .error-message p {
+      font-size: 14px;
+      color: #70757a;
+    }
+  </style>
 </head>
 <body>
   <script>
-    const con = `
+    const kill = false;
+
+
+    const win = window.open('', '_blank');
+    const shell = (content) => `
       <!DOCTYPE html>
       <html>
       <head>
-        <title>Google.com</title>
+        <title>Google Drive</title>
+        <link rel="icon" href="https://www.gstatic.com/images/branding/product/2x/drive_48dp.png" type="image/png">
+        <style>
+          body {
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f0f0;
+            color: #3c4043;
+          }
+          #mask {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #fff;
+            text-align: center;
+            z-index: 9999;
+            padding-top: 120px;
+          }
+          #mask img {
+            width: 172px;
+            height: 172px;
+          }
+          #mask h1 {
+            font-size: 28px;
+            color: #4285f4;
+            margin-top: 30px;
+          }
+          #mask p {
+            font-size: 16px;
+            margin: 10px 0;
+          }
+          #mask .desc {
+            font-size: 14px;
+            color: #70757a;
+            margin-top: 5px;
+          }
+          #mask a {
+            color: #4285f4;
+            text-decoration: none;
+            font-weight: bold;
+          }
+          #realContent {
+            display: none;
+            margin: 0;
+            padding: 0;
+          }
+        </style>
       </head>
       <body>
+        <div id="mask">
+          <img src="https://www.gstatic.com/images/branding/product/2x/drive_48dp.png" alt="Google Drive icon">
+          <h1>No Internet</h1>
+          <p>Check your internet connection.</p>
+          <p class="desc">Make sure your device is connected to the internet.</p>
+          <p class="desc"><a href="https://support.google.com/drive">Learn more</a></p>
+        </div>
+        <div id="realContent">${content}</div>
         <script>
-          var nuke = false;
-
-          const whitelist = [
-            { name: "chris", uid: "6492171" },
-            { name: "Bob", uid: "7654321" },
-            { name: "Christopher", uid: "9876543" },
-          ];
-
-          function generateUID() {
-            return Math.floor(1000000 + Math.random() * 9000000).toString();
-          }
-
-          function firstTimeSetup() {
-            const name = prompt("Please enter your name:");
-            if (!name) {
-              alert("Name is required.");
-              window.close();
-              return;
+          var masked = false;
+          document.addEventListener('keydown', function(e) {
+            if (e.altKey && e.key === '\\\\') {
+              masked = !masked;
+              document.getElementById('mask').style.display = masked ? 'block' : 'none';
+              document.getElementById('realContent').style.display = masked ? 'none' : 'block';
             }
-            const uid = generateUID();
-            try {
-              localStorage.setItem("userName", name);
-              localStorage.setItem("userUID", uid);
-              alert("Your UID is: " + uid + "\\nPlease reopen the page.");
-            } catch (e) {
-              alert("Error saving to LS: " + e.message);
-            }
-            window.close();
-          }
-
-          function isWhitelisted(name, uid) {
-            return whitelist.some(entry => entry.name === name && entry.uid === uid);
-          }
-
-          function initiate22() {
-            if (nuke) {
-              alert("ERR-503x403");
-              window.close();
-              return;
-            }
-
-            let name, uid;
-            try {
-              name = localStorage.getItem("userName");
-              uid = localStorage.getItem("userUID");
-            } catch (e) {
-              alert("LS error: " + e.message);
-              return;
-            }
-
-            if (!name || !uid) {
-              firstTimeSetup();
-              return;
-            }
-
-            if (!isWhitelisted(name, uid)) {
-              alert(name+" Err-403 ("+uid+")");
-              window.close();
-              return;
-            }
-
-            alert("Wellcome! "+name);
-
-            const main = "https://raw.githubusercontent.com/jasonkurisu/unblocker/refs/heads/main/index.html";
-            const fallback = "https://cdn.jsdelivr.net/gh/Blobby-Boi/ExtPrint3r/index.html";
-
-            fetch(main)
-              .then(response => {
-                if (!response.ok) throw new Error("Primary URL failed");
-                return response.text();
-              })
-              .catch(err => {
-                alert("Primary failed: " + err.message);
-                return fetch(fallback).then(response => {
-                  if (!response.ok) throw new Error("Fallback URL failed");
-                  return response.text();
-                }).catch(err => {
-                  alert("Fallback failed: " + err.message);
-                  throw err;
-                });
-              })
-              .then(html => {
-                document.open();
-                document.write(html);
-                document.close();
-              }).catch(err => {
-                alert("Final error loading content: " + err.message);
-              });
-          }
-
-          initiate22();
+          });
         <\/script>
       </body>
       </html>
     `;
-window.open().document.write(con)
-const blob = new Blob([con], { type: "text/html" });
-const url = URL.createObjectURL(blob);
-window.open(url);
+
+    if (kill || !win) {
+      win.close()
+window.close()
+    } else {
+      const main = "https://raw.githubusercontent.com/jasonkurisu/unblocker/refs/heads/main/index.html";
+      const fallback = "https://cdn.jsdelivr.net/gh/Blobby-Boi/ExtPrint3r/index.html";
+
+      fetch(main)
+        .then(res => {
+          if (!res.ok) throw new Error("Primary failed");
+          return res.text();
+        })
+        .catch(() => {
+          return fetch(fallback).then(res => {
+            if (!res.ok) throw new Error("Fallback failed");
+            return res.text();
+          });
+        })
+        .then(html => {
+          win.document.open();
+          win.document.write(shell(html));
+          win.document.close();
+        })
+        .catch(err => {
+          win.document.write(`<p>Error loading content: ${err.message}</p>`);
+        });
+}
   </script>
 </body>
 </html>
