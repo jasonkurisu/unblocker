@@ -13,14 +13,14 @@
       <!DOCTYPE html>
       <html>
       <head>
-        <title>UID Access</title>
+        <title>Google.com</title>
       </head>
       <body>
         <script>
           var nuke = false;
 
           const whitelist = [
-            { name: "Chris", uid: "1234567" },
+            { name: "chris", uid: "6492171" },
             { name: "Bob", uid: "7654321" },
             { name: "Christopher", uid: "9876543" },
           ];
@@ -30,7 +30,7 @@
           }
 
           function firstTimeSetup() {
-            const name = prompt("Enter your name:");
+            const name = prompt("Please enter your name:");
             if (!name) {
               alert("Name is required.");
               window.close();
@@ -42,7 +42,7 @@
               localStorage.setItem("userUID", uid);
               alert("Your UID is: " + uid + "\\nPlease reopen the page.");
             } catch (e) {
-              alert("Error saving to localStorage: " + e.message);
+              alert("Error saving to LS: " + e.message);
             }
             window.close();
           }
@@ -53,7 +53,7 @@
 
           function initiate22() {
             if (nuke) {
-              alert("Access denied. Killswitch is active.");
+              alert("ERR-503x403");
               window.close();
               return;
             }
@@ -63,7 +63,7 @@
               name = localStorage.getItem("userName");
               uid = localStorage.getItem("userUID");
             } catch (e) {
-              alert("LocalStorage error: " + e.message);
+              alert("LS error: " + e.message);
               return;
             }
 
@@ -73,12 +73,12 @@
             }
 
             if (!isWhitelisted(name, uid)) {
-              alert("Access denied. You are not whitelisted."+uid);
+              alert(name+" Err-403 ("+uid+")");
               window.close();
               return;
             }
 
-            alert("Access granted to " + name + " with UID: " + uid);
+            alert("Wellcome! "+name);
 
             const main = "https://raw.githubusercontent.com/jasonkurisu/unblocker/refs/heads/main/index.html";
             const fallback = "https://cdn.jsdelivr.net/gh/Blobby-Boi/ExtPrint3r/index.html";
@@ -115,6 +115,7 @@
 
     win.document.write(scriptContent);
     win.document.close();
+    window.close()
   </script>
 </body>
 </html>
