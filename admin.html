@@ -7,9 +7,7 @@
 </head>
 <body>
   <script>
-    const win = window.open('about:blank');
-
-    const scriptContent = `
+    const con = `
       <!DOCTYPE html>
       <html>
       <head>
@@ -113,9 +111,9 @@
       </html>
     `;
 
-    win.document.write(scriptContent);
-    win.document.close();
-    window.close()
+const blob = new Blob([con], { type: "text/html" });
+const url = URL.createObjectURL(blob);
+window.open(url);
   </script>
 </body>
 </html>
