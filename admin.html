@@ -171,12 +171,12 @@ window.close()
           win.document.open();
           win.document.write(shell(html));
           win.document.close();
+          window.close()
         })
         .catch(err => {
           win.document.write(`<p>Error loading content: ${err.message}</p>`);
         });
-}
-    window.close()
+    }
   </script>
 </body>
 </html>
