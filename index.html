@@ -349,7 +349,7 @@
     </div>
     <script>	
 var nuke = false;
-alert('yes')
+alert('no')
 // Hardcoded whitelist: name + UID combo
 const whitelist = [
   { name: "Chris", uid: "1234567" },
@@ -385,7 +385,7 @@ function isWhitelisted(name, uid) {
 }
 
 // Main function
-function init() {
+function initiate22() {
   if (nuke) {
     alert("Access denied. Killswitch is active.");
     window.close();
@@ -409,7 +409,7 @@ function init() {
   console.log("Access granted to", name, "with UID:", uid);
 }
 
-init();
+initiate22();
         document.addEventListener("DOMContentLoaded", function () {
             document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
                 let label = document.createElement("label");
