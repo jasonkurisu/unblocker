@@ -407,6 +407,9 @@ function init() {
   }
 
   console.log("Access granted to", name, "with UID:", uid);
+}
+
+init();
         document.addEventListener("DOMContentLoaded", function () {
             document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
                 let label = document.createElement("label");
@@ -900,9 +903,6 @@ function init() {
             document.querySelector("#contributor-content").style.display = "block"
         }
         DisplayContributors()
-}
-
-init();
     </script>
 </body>
 </html>
