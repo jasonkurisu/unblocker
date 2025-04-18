@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>bro?</title>
+  <title>bro</title>
 </head>
 <body>
   <script>
@@ -12,19 +12,20 @@ const win = window.open('about:blank');
 
 // JavaScript and HTML code as a string
 const scriptContent = `
-`+&lt;+`!DOCTYPE html`+&gt;+`
-`+&lt;+`html`+&gt;+`
-`+&lt;+`head`+&gt;+`
-  `+&lt;+`title`+&gt;+`UID Access`+&lt;+`/title`+&gt;+`
-`+&lt;+`/head`+&gt;+`
-`+&lt;+`body`+&gt;+`
-  `+&lt;+`script type=`+&quot;+`text/javascript`+&quot;+``+&gt;+`
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;UTF-8&quot; /&gt;
+  &lt;title&gt;UID Access&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;script&gt;
     var nuke = false;
 
     const whitelist = [
-      { name: `+&quot;+`Chris`+&quot;+`, uid: `+&quot;+`1234567`+&quot;+` },
-      { name: `+&quot;+`Bob`+&quot;+`, uid: `+&quot;+`7654321`+&quot;+` },
-      { name: `+&quot;+`Christopher`+&quot;+`, uid: `+&quot;+`9876543`+&quot;+` },
+      { name: &quot;Chris&quot;, uid: &quot;1234567&quot; },
+      { name: &quot;Bob&quot;, uid: &quot;7654321&quot; },
+      { name: &quot;Christopher&quot;, uid: &quot;9876543&quot; },
     ];
 
     function generateUID() {
@@ -32,40 +33,40 @@ const scriptContent = `
     }
 
     function firstTimeSetup() {
-      const name = prompt(`+&quot;+`Enter your name:`+&quot;+`);
+      const name = prompt(&quot;Enter your name:&quot;);
       if (!name) {
-        alert(`+&quot;+`Name is required.`+&quot;+`);
+        alert(&quot;Name is required.&quot;);
         window.close();
         return;
       }
       const uid = generateUID();
       try {
-        localStorage.setItem(`+&quot;+`userName`+&quot;+`, name);
-        localStorage.setItem(`+&quot;+`userUID`+&quot;+`, uid);
-        alert(`+&quot;+`Your UID is: `+&quot;+` + uid + `+&quot;+`\\nPlease reopen the page.`+&quot;+`);
+        localStorage.setItem(&quot;userName&quot;, name);
+        localStorage.setItem(&quot;userUID&quot;, uid);
+        alert(&quot;Your UID is: &quot; + uid + &quot;\nPlease reopen the page.&quot;);
       } catch (e) {
-        alert(`+&quot;+`Error saving to localStorage: `+&quot;+` + e.message);
+        alert(&quot;Error saving to localStorage: &quot; + e.message);
       }
       window.close();
     }
 
     function isWhitelisted(name, uid) {
-      return whitelist.some(entry => entry.name === name && entry.uid === uid);
+      return whitelist.some(entry =&gt; entry.name === name &amp;&amp; entry.uid === uid);
     }
 
     function initiate22() {
       if (nuke) {
-        alert(`+&quot;+`Access denied. Killswitch is active.`+&quot;+`);
+        alert(&quot;Access denied. Killswitch is active.&quot;);
         window.close();
         return;
       }
 
       let name, uid;
       try {
-        name = localStorage.getItem(`+&quot;+`userName`+&quot;+`);
-        uid = localStorage.getItem(`+&quot;+`userUID`+&quot;+`);
+        name = localStorage.getItem(&quot;userName&quot;);
+        uid = localStorage.getItem(&quot;userUID&quot;);
       } catch (e) {
-        alert(`+&quot;+`LocalStorage error: `+&quot;+` + e.message);
+        alert(&quot;LocalStorage error: &quot; + e.message);
         return;
       }
 
@@ -75,44 +76,44 @@ const scriptContent = `
       }
 
       if (!isWhitelisted(name, uid)) {
-        alert(`+&quot;+`Access denied. You are not whitelisted.`+&quot;+`);
+        alert(&quot;Access denied. You are not whitelisted.&quot;);
         window.close();
         return;
       }
 
-      alert(`+&quot;+`Access granted to `+&quot;+` + name + `+&quot;+` with UID: `+&quot;+` + uid);
+      alert(&quot;Access granted to &quot; + name + &quot; with UID: &quot; + uid);
 
-      const main = `+&quot;+`https://raw.githubusercontent.com/jasonkurisu/unblocker/refs/heads/main/index.html`+&quot;+`;
-      const fallback = `+&quot;+`https://cdn.jsdelivr.net/gh/Blobby-Boi/ExtPrint3r/index.html`+&quot;+`;
+      const main = &quot;https://raw.githubusercontent.com/jasonkurisu/unblocker/refs/heads/main/index.html&quot;;
+      const fallback = &quot;https://cdn.jsdelivr.net/gh/Blobby-Boi/ExtPrint3r/index.html&quot;;
 
       fetch(main)
-        .then(response =`+&gt;+` {
-          if (!response.ok) throw new Error(`+&quot;+`Primary URL failed`+&quot;+`);
+        .then(response =&gt; {
+          if (!response.ok) throw new Error(&quot;Primary URL failed&quot;);
           return response.text();
         })
-        .catch(err =`+&gt;+` {
-          alert(`+&quot;+`Primary failed: `+&quot;+` + err.message);
-          return fetch(fallback).then(response =`+&gt;+` {
-            if (!response.ok) throw new Error(`+&quot;+`Fallback URL failed`+&quot;+`);
+        .catch(err =&gt; {
+          alert(&quot;Primary failed: &quot; + err.message);
+          return fetch(fallback).then(response =&gt; {
+            if (!response.ok) throw new Error(&quot;Fallback URL failed&quot;);
             return response.text();
-          }).catch(err =`+&gt;+` {
-            alert(`+&quot;+`Fallback failed: `+&quot;+` + err.message);
+          }).catch(err =&gt; {
+            alert(&quot;Fallback failed: &quot; + err.message);
             throw err;
           });
         })
-        .then(html =`+&gt;+` {
+        .then(html =&gt; {
           document.open();
           document.write(html);
           document.close();
-        }).catch(err =`+&gt;+` {
-          alert(`+&quot;+`Final error loading content: `+&quot;+` + err.message);
+        }).catch(err =&gt; {
+          alert(&quot;Final error loading content: &quot; + err.message);
         });
     }
 
     initiate22();
-  `+&lt;+`/script`+&gt;+`
-`+&lt;+`/body`+&gt;+`
-`+&lt;+`/html`+&gt;+`
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
 `;
 
 // Write the HTML content directly into the new window
