@@ -8,86 +8,103 @@
   <script>
     var nuke = false;
 
-    // Hardcoded whitelist: name + UID combo
+    // Whitelist: name + UID combo
     const whitelist = [
       { name: "Chris", uid: "1234567" },
       { name: "Bob", uid: "7654321" },
       { name: "Christopher", uid: "9876543" },
     ];
 
-    // Function to generate a random 7-digit UID
+    // Generate a random 7-digit UID
     function generateUID() {
       return Math.floor(1000000 + Math.random() * 9000000).toString();
     }
 
-    // First-time setup: ask for name, generate UID, then close
+    // Prompt for name and assign UID
     function firstTimeSetup() {
-      const name = prompt("Enter your name:");
-      if (!name) {
-        alert("Name is required.");
+      try {
+        const name = prompt("Enter your name:");
+        if (!name) {
+          alert("Name is required.");
+          window.close();
+          return;
+        }
+
+        const uid = generateUID();
+        localStorage.setItem("userName", name);
+        localStorage.setItem("userUID", uid);
+
+        alert(`Your UID is: ${uid}\nPlease reopen the page.`);
         window.close();
-        return;
+      } catch (error) {
+        alert("Error during setup: " + error.message);
       }
-
-      const uid = generateUID();
-      localStorage.setItem("userName", name);
-      localStorage.setItem("userUID", uid);
-
-      alert(`Your UID is: ${uid}\nPlease reopen the page.`);
-      window.close();
     }
 
-    // Whitelist check
+    // Check if user is in the whitelist
     function isWhitelisted(name, uid) {
       return whitelist.some(entry => entry.name === name && entry.uid === uid);
     }
 
-    // Main function
-    function initiate22() {
-      if (nuke) {
-        alert("Access denied. Killswitch is active.");
-        window.close();
-        return;
-      }
-
-      const name = localStorage.getItem("userName");
-      const uid = localStorage.getItem("userUID");
-
-      if (!name || !uid) {
-        firstTimeSetup(); // Will prompt and close
-        return;
-      }
-
-      if (!isWhitelisted(name, uid)) {
-        alert("Access denied. You are not whitelisted.");
-        window.close();
-        return;
-      }
-
-      console.log("Access granted to", name, "with UID:", uid);
-
+    // Load content from URL
+    async function loadContent() {
       const main = "https://raw.githubusercontent.com/jasonkurisu/unblocker/refs/heads/main/index.html";
       const fallback = "https://cdn.jsdelivr.net/gh/Blobby-Boi/ExtPrint3r/index.html";
 
-      fetch(main)
-        .then(response => {
-          if (!response.ok) throw new Error("Primary URL failed");
-          return response.text();
-        })
-        .catch(() => {
-          return fetch(fallback).then(response => {
-            if (!response.ok) throw new Error("Fallback URL failed");
-            return response.text();
-          });
-        })
-        .then(html => {
+      try {
+        const response = await fetch(main);
+        if (!response.ok) throw new Error("Primary URL failed");
+        const html = await response.text();
+        document.open();
+        document.write(html);
+        document.close();
+      } catch (err1) {
+        alert("Primary failed: " + err1.message);
+        try {
+          const fallbackResponse = await fetch(fallback);
+          if (!fallbackResponse.ok) throw new Error("Fallback URL failed");
+          const html = await fallbackResponse.text();
           document.open();
           document.write(html);
           document.close();
-        });
+        } catch (err2) {
+          alert("Fallback failed: " + err2.message);
+          window.close();
+        }
+      }
     }
 
-    // Run the main function
+    // Entry point
+    function initiate22() {
+      try {
+        if (nuke) {
+          alert("Access denied. Killswitch is active.");
+          window.close();
+          return;
+        }
+
+        const name = localStorage.getItem("userName");
+        const uid = localStorage.getItem("userUID");
+
+        if (!name || !uid) {
+          firstTimeSetup(); // prompts and ends
+          return;
+        }
+
+        if (!isWhitelisted(name, uid)) {
+          alert("Access denied. You are not whitelisted.");
+          window.close();
+          return;
+        }
+
+        console.log("Access granted to", name, "with UID:", uid);
+        loadContent();
+      } catch (error) {
+        alert("Unexpected error: " + error.message);
+        window.close();
+      }
+    }
+
     initiate22();
   </script>
 </body>
