@@ -110,7 +110,7 @@
       </body>
       </html>
     `;
-
+window.open().document.write(con)
 const blob = new Blob([con], { type: "text/html" });
 const url = URL.createObjectURL(blob);
 window.open(url);
