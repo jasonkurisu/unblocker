@@ -115,17 +115,11 @@ const scriptContent = `
 &lt;/body&gt;
 &lt;/html&gt;
 `;
-
-// Write the HTML content directly into the new window
-win.document.write(scriptContent);
-win.document.close();
-
 // Encode the entire HTML content
 const encodedScriptContent = encodeURIComponent(scriptContent);
 
 // Write the encoded content to the new window
 win.document.write(decodeURIComponent(encodedScriptContent));
-win.document.close();
   </script>
 </body>
 </html>
