@@ -136,6 +136,9 @@
         </div>
         <div id="realContent">${content}</div>
         <script>
+window.addEventListener("beforeunload", function(event) {
+  event.returnValue = "anti close activated.";
+});
           var masked = false;
           document.addEventListener('keydown', function(e) {
             if (e.altKey && e.key === '\\\\') {
