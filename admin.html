@@ -11,175 +11,140 @@
       font-family: 'Roboto', sans-serif;
       background-color: #f0f0f0;
       color: #3c4043;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
     }
-    #mask {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: #fff;
-      text-align: center;
-      z-index: 9999;
-      padding-top: 120px;
-    }
-    #mask img {
-      width: 172px;
-      height: 172px;
-    }
-    #mask h1 {
-      font-size: 28px;
-      color: #4285f4;
-      margin-top: 30px;
-    }
-    #mask p {
+    button {
+      padding: 12px 20px;
       font-size: 16px;
-      margin: 10px 0;
-    }
-    #mask .desc {
-      font-size: 14px;
-      color: #70757a;
-      margin-top: 5px;
-    }
-    #mask a {
-      color: #4285f4;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    #realContent {
-      display: none;
-      margin: 0;
-      padding: 0;
-    }
-    .error-message {
-      padding: 20px;
-    }
-    .error-message h2 {
-      margin: 0;
-      font-size: 24px;
-    }
-    .error-message p {
-      font-size: 14px;
-      color: #70757a;
+      background-color: #4285f4;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
+  <button onclick="launch()">Open Fake Drive</button>
+
   <script>
-    const kill = false;
+    function launch() {
+      const kill = false;
+      const win = window.open('', '_blank');
 
-
-    const win = window.open('', '_blank');
-    const shell = (content) => `
-      <!DOCTYPE html>
-      <html>
-      <head>
-        <title>Google Drive</title>
-        <link rel="icon" href="https://www.gstatic.com/images/branding/product/2x/drive_48dp.png" type="image/png">
-        <style>
-          body {
-            margin: 0;
-            font-family: 'Roboto', sans-serif;
-            background-color: #f0f0f0;
-            color: #3c4043;
-          }
-          #mask {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: #fff;
-            text-align: center;
-            z-index: 9999;
-            padding-top: 120px;
-          }
-          #mask img {
-            width: 172px;
-            height: 172px;
-          }
-          #mask h1 {
-            font-size: 28px;
-            color: #4285f4;
-            margin-top: 30px;
-          }
-          #mask p {
-            font-size: 16px;
-            margin: 10px 0;
-          }
-          #mask .desc {
-            font-size: 14px;
-            color: #70757a;
-            margin-top: 5px;
-          }
-          #mask a {
-            color: #4285f4;
-            text-decoration: none;
-            font-weight: bold;
-          }
-          #realContent {
-            display: none;
-            margin: 0;
-            padding: 0;
-          }
-        </style>
-      </head>
-      <body>
-        <div id="mask">
-          <img src="https://www.gstatic.com/images/branding/product/2x/drive_48dp.png" alt="Google Drive icon">
-          <h1>No Internet</h1>
-          <p>Check your internet connection.</p>
-          <p class="desc">Make sure your device is connected to the internet.</p>
-          <p class="desc"><a href="https://support.google.com/drive">Learn more</a></p>
-        </div>
-        <div id="realContent">${content}</div>
-        <script>
-window.addEventListener("beforeunload", function(event) {
-  event.returnValue = "anti close activated.";
-});
-          var masked = false;
-          document.addEventListener('keydown', function(e) {
-            if (e.altKey && e.key === '\\\\') {
-              masked = !masked;
-              document.getElementById('mask').style.display = masked ? 'block' : 'none';
-              document.getElementById('realContent').style.display = masked ? 'none' : 'block';
+      const shell = (content) => `
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <title>Google Drive</title>
+          <link rel="icon" href="https://www.gstatic.com/images/branding/product/2x/drive_48dp.png" type="image/png">
+          <style>
+            body {
+              margin: 0;
+              font-family: 'Roboto', sans-serif;
+              background-color: #f0f0f0;
+              color: #3c4043;
             }
-          });
-        <\/script>
-      </body>
-      </html>
-    `;
+            #mask {
+              display: none;
+              position: fixed;
+              top: 0;
+              left: 0;
+              width: 100%;
+              height: 100%;
+              background-color: #fff;
+              text-align: center;
+              z-index: 9999;
+              padding-top: 120px;
+            }
+            #mask img {
+              width: 172px;
+              height: 172px;
+            }
+            #mask h1 {
+              font-size: 28px;
+              color: #4285f4;
+              margin-top: 30px;
+            }
+            #mask p {
+              font-size: 16px;
+              margin: 10px 0;
+            }
+            #mask .desc {
+              font-size: 14px;
+              color: #70757a;
+              margin-top: 5px;
+            }
+            #mask a {
+              color: #4285f4;
+              text-decoration: none;
+              font-weight: bold;
+            }
+            #realContent {
+              display: none;
+              margin: 0;
+              padding: 0;
+            }
+          </style>
+        </head>
+        <body>
+          <div id="mask">
+            <img src="https://www.gstatic.com/images/branding/product/2x/drive_48dp.png" alt="Google Drive icon">
+            <h1>No Internet</h1>
+            <p>Check your internet connection.</p>
+            <p class="desc">Make sure your device is connected to the internet.</p>
+            <p class="desc"><a href="https://support.google.com/drive">Learn more</a></p>
+          </div>
+          <div id="realContent">${content}</div>
+          <script>
+            window.addEventListener("beforeunload", function(event) {
+              event.returnValue = "anti close activated.";
+            });
+            var masked = false;
+            document.addEventListener('keydown', function(e) {
+              if (e.altKey && e.key === '\\\\') {
+                masked = !masked;
+                document.getElementById('mask').style.display = masked ? 'block' : 'none';
+                document.getElementById('realContent').style.display = masked ? 'none' : 'block';
+              }
+            });
+          <\/script>
+        </body>
+        </html>
+      `;
 
-    if (kill || !win) {
-      win.close()
-window.close()
-    } else {
-      const main = "https://raw.githubusercontent.com/jasonkurisu/unblocker/refs/heads/main/index.html";
-      const fallback = "https://cdn.jsdelivr.net/gh/jasonkurisu/unblocker/index.html";
+      if (kill || !win) {
+        if (win) win.close();
+        window.close();
+      } else {
+        const main = "https://raw.githubusercontent.com/jasonkurisu/unblocker/refs/heads/main/index.html";
+        const fallback = "https://cdn.jsdelivr.net/gh/jasonkurisu/unblocker/index.html";
 
-      fetch(main)
-        .then(res => {
-          if (!res.ok) throw new Error("Primary failed");
-          return res.text();
-        })
-        .catch(() => {
-          return fetch(fallback).then(res => {
-            if (!res.ok) throw new Error("Fallback failed");
+        fetch(main)
+          .then(res => {
+            if (!res.ok) throw new Error("Primary failed");
             return res.text();
+          })
+          .catch(() => {
+            return fetch(fallback).then(res => {
+              if (!res.ok) throw new Error("Fallback failed");
+              return res.text();
+            });
+          })
+          .then(html => {
+            win.document.open();
+            win.document.write(shell(html));
+            win.document.close();
+window.open("https://www.startpage.com", "_blank");
+            window.close(); // Close original tab
+          })
+          .catch(err => {
+            win.document.write(`<p>Error loading content: ${err.message}</p>`);
           });
-        })
-        .then(html => {
-          win.document.open();
-          win.document.write(shell(html));
-          win.document.close();
-          window.close()
-        var win = window.open(); win.document.title = 'Google tab'; var f = win.document.createElement("iframe");  window.focus(); var url = "https://www.startpage.com/"; if (!url) return; f.style.width = "100%"; f.style.height = "100%"; win.document.body.appendChild(f); f.src=url; win.document.body.style.margin = '0'; f.style.border = 'none'; f.style.margin = '0'; win.document.body.style.height = '100vh'        var win = window.open(); win.document.title = 'Google tab'; var f = win.document.createElement("iframe");  window.focus(); var url = ""; if (!url) return; f.style.width = "100%"; f.style.height = "100%"; win.document.body.appendChild(f); f.src=url; win.document.body.style.margin = '0'; f.style.border = 'none'; f.style.margin = '0'; win.document.body.style.height = '100vh'
-        })
-        .catch(err => {
-          win.document.write(`<p>Error loading content: ${err.message}</p>`);
-        });
+      }
     }
   </script>
 </body>
